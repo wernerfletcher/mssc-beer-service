@@ -17,8 +17,8 @@ public class BeerServiceImpl implements BeerService {
     private final BeerMapper beerMapper;
 
     @Override
-    public BeerDto getBeer(UUID beerId) {
-        return beerMapper.beerToBeerDto(beerRepository.findById(beerId).orElseThrow(BeerNotFoundException::new));
+    public BeerDto getBeer(String beerId) {
+        return beerMapper.beerToBeerDto(beerRepository.findById(UUID.fromString(beerId)).orElseThrow(BeerNotFoundException::new));
     }
 
     @Override
@@ -27,8 +27,8 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public BeerDto updateBeer(UUID beerId, BeerDto beerDto) {
-        Beer beerToUpdate = beerRepository.findById(beerId).orElseThrow(BeerNotFoundException::new);
+    public BeerDto updateBeer(String beerId, BeerDto beerDto) {
+        Beer beerToUpdate = beerRepository.findById(UUID.fromString(beerId)).orElseThrow(BeerNotFoundException::new);
         beerToUpdate.setBeerName(beerDto.getBeerName());
         beerToUpdate.setBeerStyle(beerDto.getBeerStyle().toString());
         beerToUpdate.setPrice(beerDto.getPrice());
