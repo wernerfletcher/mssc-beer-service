@@ -12,7 +12,6 @@ import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Data
 @Builder
@@ -21,7 +20,7 @@ import java.util.UUID;
 public class BeerDto {
 
     @Null
-    private UUID id;
+    private String id;
 
     @Null
     private Integer version;
