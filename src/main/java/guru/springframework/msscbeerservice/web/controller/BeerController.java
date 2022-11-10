@@ -26,7 +26,8 @@ public class BeerController {
     public ResponseEntity<BeerPagedList> listBeers(@RequestParam(value = "pageNumber", required = false) Integer pageNumber,
                                                    @RequestParam(value = "pageSize", required = false) Integer pageSize,
                                                    @RequestParam(value = "beerName", required = false) String beerName,
-                                                   @RequestParam(value = "beerStyle", required = false) BeerStyle beerStyle) {
+                                                   @RequestParam(value = "beerStyle", required = false) BeerStyle beerStyle,
+                                                   @RequestParam(value = "showInventoryOnHand", required = false) Boolean showInventoryOnHand) {
         if (pageNumber == null || pageNumber < 0){
             pageNumber = DEFAULT_PAGE_NUMBER;
         }
@@ -35,12 +36,21 @@ public class BeerController {
             pageSize = DEFAULT_PAGE_SIZE;
         }
 
-        return new ResponseEntity<>(beerService.listBeers(beerName, beerStyle, PageRequest.of(pageNumber, pageSize)), HttpStatus.OK);
+        if (showInventoryOnHand == null) {
+            showInventoryOnHand = false;
+        }
+
+        return new ResponseEntity<>(beerService.listBeers(beerName, beerStyle, PageRequest.of(pageNumber, pageSize), showInventoryOnHand), HttpStatus.OK);
     }
 
     @GetMapping("/{beerId}")
-    public ResponseEntity<BeerDto> getBeer(@PathVariable("beerId") String beerId) {
-        return new ResponseEntity<>(beerService.getBeer(beerId), HttpStatus.OK);
+    public ResponseEntity<BeerDto> getBeer(@PathVariable("beerId") String beerId,
+                                           @RequestParam(value = "showInventoryOnHand", required = false) Boolean showInventoryOnHand) {
+        if (showInventoryOnHand == null) {
+            showInventoryOnHand = false;
+        }
+
+        return new ResponseEntity<>(beerService.getBeer(beerId, showInventoryOnHand), HttpStatus.OK);
     }
 
     @PostMapping

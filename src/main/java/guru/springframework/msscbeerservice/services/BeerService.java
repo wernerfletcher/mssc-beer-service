@@ -7,9 +7,9 @@ import org.springframework.data.domain.PageRequest;
 
 public interface BeerService {
 
-    BeerPagedList listBeers(String beerName, BeerStyle beerStyle, PageRequest pageRequest);
+    BeerPagedList listBeers(String beerName, BeerStyle beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand);
 
-    public BeerDto getBeer(String beerId);
+    public BeerDto getBeer(String beerId, Boolean showInventoryOnHand);
 
     public BeerDto saveNewBeer(BeerDto beerDto);
 

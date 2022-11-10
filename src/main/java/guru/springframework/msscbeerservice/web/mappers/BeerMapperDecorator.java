@@ -5,7 +5,7 @@ import guru.springframework.msscbeerservice.services.inventory.BeerInventoryServ
 import guru.springframework.msscbeerservice.web.model.BeerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public abstract class BeerMapperDecorator implements BeerMapper{
+public abstract class BeerMapperDecorator implements BeerMapper {
 
     private BeerInventoryService beerInventoryService;
     private BeerMapper beerMapper;
@@ -22,6 +22,11 @@ public abstract class BeerMapperDecorator implements BeerMapper{
 
     @Override
     public BeerDto beerToBeerDto(Beer beer) {
+        return beerMapper.beerToBeerDto(beer);
+    }
+
+    @Override
+    public BeerDto beerToBeerDtoWithInventory(Beer beer) {
         BeerDto dto = beerMapper.beerToBeerDto(beer);
         dto.setQuantityOnHand(beerInventoryService.getOnHandInventory(beer.getId()));
         return dto;
