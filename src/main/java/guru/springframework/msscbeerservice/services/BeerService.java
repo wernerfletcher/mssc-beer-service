@@ -5,13 +5,17 @@ import guru.springframework.msscbeerservice.web.model.BeerPagedList;
 import guru.springframework.msscbeerservice.web.model.BeerStyle;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.UUID;
+
 public interface BeerService {
 
     BeerPagedList listBeers(String beerName, BeerStyle beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand);
 
-    public BeerDto getBeer(String beerId, Boolean showInventoryOnHand);
+    BeerDto getBeerById(UUID beerId, Boolean showInventoryOnHand);
 
-    public BeerDto saveNewBeer(BeerDto beerDto);
+    BeerDto getBeerByUpc(String upc);
 
-    public BeerDto updateBeer(String beerId, BeerDto beerDto);
+    BeerDto saveNewBeer(BeerDto beerDto);
+
+    BeerDto updateBeer(UUID beerId, BeerDto beerDto);
 }
